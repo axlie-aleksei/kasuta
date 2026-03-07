@@ -17,6 +17,81 @@
 
 </head>
 
+<div class="modal fade" id="loginModal">
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark text-white">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Login</h5>
+        <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <form>
+
+          <div class="mb-3">
+            <label>Email</label>
+            <input type="email" class="form-control">
+          </div>
+
+          <div class="mb-3">
+            <label>Password</label>
+            <input type="password" class="form-control">
+          </div>
+
+          <button class="btn btn-success w-100">
+            Login
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="registerModal">
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark text-white">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Register</h5>
+        <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <form>
+
+          <div class="mb-3">
+            <label>Name</label>
+            <input type="text" class="form-control">
+          </div>
+
+          <div class="mb-3">
+            <label>Email</label>
+            <input type="email" class="form-control">
+          </div>
+
+          <div class="mb-3">
+            <label>Password</label>
+            <input type="password" class="form-control">
+          </div>
+
+          <button class="btn btn-success w-100">
+            Register
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <body>
 
 <div class="background-image">
@@ -26,8 +101,15 @@
     <div class="logo">Minu blogi</div>
 
     <ul class="menu">
-      <li><a href="index4.html">Login</a></li>
-      <li><a href="index3.html">Register</a></li>
+      <div class="nav-buttons">
+        <button class="login-btn" data-bs-toggle="modal" data-bs-target="#loginModal">
+          Login
+        </button>
+
+        <button class="register-btn" data-bs-toggle="modal" data-bs-target="#registerModal">
+          Register
+        </button>
+      </div>
       <li><a href="#">Avaleht</a></li>
       <li><a href="#">Blogi</a></li>
       <li><a href="#">CV</a></li>
