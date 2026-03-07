@@ -1,94 +1,64 @@
-body{
+/* Сброс */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  background: #000; /* чёрный фон */
+  color: #fff;
   overflow: hidden;
 }
 
-#test1 {
-   background: rgba(255, 255, 255, 0.08); /* лёгкая прозрачность */
-   border-radius: 20px;
-   border: 1px solid rgba(255, 255, 255, 0.25);
 
-   /* эффект стекла */
-   backdrop-filter: blur(10px);
-   -webkit-backdrop-filter: blur(10px);
+/* Общий стиль карточек */
+#test1,
+#test2,
+#test3,
+#test4 {
+  background: rgba(20, 20, 20, 0.6);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 255, 120, 0.3);
 
-   /* тень для красоты */
-   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
- }
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 
-/* чтобы текст нормально был виден */
+  box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+}
+
+/* текст внутри карточек */
 #test1 .card-title,
 #test1 p,
-#test1 small {
-  color: white;
-}
-
-#test2 {
-  background: rgba(255, 255, 255, 0.08); /* лёгкая прозрачность */
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-
-  /* эффект стекла */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  /* тень для красоты */
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-}
-
-/* чтобы текст нормально был виден */
+#test1 small,
 #test2 .card-title,
 #test2 p,
-#test2 small {
-  color: white;
-}
-
-#test4{
-  background: rgba(255, 255, 255, 0.08); /* лёгкая прозрачность */
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-
-  /* эффект стекла */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  /* тень для красоты */
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-}
-
-#test3 {
-  background: rgba(255, 255, 255, 0.08); /* лёгкая прозрачность */
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-
-  /* эффект стекла */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  /* тень для красоты */
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-}
-
-/* чтобы текст нормально был виден */
+#test2 small,
 #test3 .card-title,
 #test3 p,
-#test3 small {
-  color: white;
+#test3 small,
+#test4 .card-title,
+#test4 p,
+#test4 small {
+  color: #fff;
 }
 
+
+/* Карточки уроков */
 .lesson-card {
   display: block;
   text-decoration: none;
-  color: white;
+  color: #fff;
 
   padding: 18px 22px;
   margin-bottom: 20px;
 
-  background: rgba(255, 255, 255, 0.1);
+  background: #111;
   border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  border: 1px solid #222;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.6);
 
   transition: 0.25s;
 }
@@ -112,81 +82,133 @@ body{
 }
 
 .lesson-text p {
-  margin: 3px 0 0;
+  margin-top: 3px;
   font-size: 14px;
-  color: #e3e3e3;
+  color: #ccc;
 }
 
+
+/* текст */
 .text-color {
-  color: #FFFFFF;
+  color: #fff;
 }
 
 .text-padding {
   margin-top: 20px;
 }
 
+
+/* Navbar */
 .navbar-glass {
   width: 100%;
   padding: 12px 25px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  background: rgba(255, 255, 255, 0.07);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(7px);
+  background: #0a0a0a;
+  border-bottom: 1px solid #222;
 }
-
 
 .menu {
   display: flex;
   gap: 25px;
   list-style: none;
-  margin: 0;
-  padding: 0;
 }
 
 .menu a {
   text-decoration: none;
-  color: white; /* обычный текст */
+  color: #fff;
   font-weight: 500;
 }
 
 .logo {
-  color: #ffffff; /* обычный текст */
+  color: #fff;
   font-weight: 600;
   font-size: 18px;
 }
 
 
-.background-image {
-
-  text-align: center;
-}
-
-
-/* gpt */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html, body {
-  height: 100%;
-  weight: 100%;
-}
-
+/* Фон */
 .background-image {
   width: 100%;
   height: 100vh;
-
-  background-image: linear-gradient(to top, rgba(0, 0, 0, 1) 15%, rgba(0, 0, 0, 0.6) 30%, rgba(0, 0, 0, 0) 45%),
-  url('../DSC_1530.JPG');
-
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background: #000; /* просто чёрный */
+  text-align: center;
 }
 
+.form-control {
+  background: rgba(0,0,0,0.6);
+  border: 1px solid rgba(0,255,120,0.3);
+  color: #fff;
+}
+
+.form-control::placeholder {
+  color: #aaa;
+}
+
+.form-control:focus {
+  background: rgba(0,0,0,0.8);
+  border-color: #00ff88;
+  box-shadow: 0 0 10px rgba(0,255,136,0.5);
+  color: #fff;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #00c853, #00ff88);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #00ff88, #00c853);
+  box-shadow: 0 0 12px rgba(0,255,136,0.6);
+}
+
+/* GLASS BLOG CARDS */
+
+.post-card{
+  background: rgba(15,15,15,0.7) !important;
+  border: 1px solid rgba(0,255,120,0.4) !important;
+  border-radius: 14px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: white !important;
+  transition: all 0.3s ease;
+}
+
+/* card body */
+.post-card .card-body{
+  color: white;
+}
+
+/* title */
+.post-card .card-title{
+  color: #00ff88;
+  font-weight: 600;
+}
+
+/* text */
+.post-card .card-text{
+  color: #cfcfcf;
+}
+
+/* hover */
+.post-card:hover{
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,255,120,0.25);
+  border-color: #00ff88;
+}
+
+/* текст */
+.post-card .card-text{
+  color: #d0d0d0;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+#posts h2{
+  color: #00ff88;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
