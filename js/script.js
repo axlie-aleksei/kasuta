@@ -1,48 +1,53 @@
-
 const form = document.getElementById("registrationForm");
-const nimi = document.getElementById("firstname")
-const perenimi = document.getElementById("lastname")
-const mail = document.getElementById("email")
-const password = document.getElementById("password")
-const phone = document.getElementById("phone")
-const description = document.getElementById("description")
-const checkbox = document.getElementById("agree")
+const firstNameInput = document.getElementById("firstname");
+const lastNameInput = document.getElementById("lastname");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+const phoneInput = document.getElementById("phone");
+const descriptionInput = document.getElementById("description");
+const agreeCheckbox = document.getElementById("agree");
 
-const emailReg = /^[A-Za-z0-9._%+-]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,}$/
-const passwordReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,32}$/
+// Регулярные выражения для валидации
+const emailReg = /^[A-Za-z0-9._%+-]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,}$/;
+const passwordReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,32}$/;
 const phoneReg = /^[+]?[0-9]{7,15}$/;
-const nameReg = /^[a-zA-Z]+$/
-const lastnameReg = /^[a-zA-Z]+$/
-const descriptionReg = /^[A-Za-z0-9.-]+$/
+const nameReg = /^[a-zA-Z]+$/;
+const descriptionReg = /^[A-Za-z0-9 .-]+$/; // Разрешаем пробелы и точки
 
-form.addEventListener("submit", async function (e) {
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  if (nameReg.test(nimi.value) && passwordReg.test(password.value)
-    && phoneReg.test(phone.value) && emailReg.test(mail.value)
-    && lastnameReg.test(perenimi.value) && descriptionReg.test(description.value) && checkbox.checked === true) {
-    const name = nimi.value
-    const email = mail.value
-    const pass = password.value
-    const phon = phone.value
-    const pere = perenimi.value
-    const descr = description.value
-    const response = await fetch("http://127.0.0.1:3000/reg",{
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({name, email, pass, phon, pere})
-    })
-    try {
-      const name = nimi.value;
-      const email = mail.value;
-      const pass = password.value;
-      const phon = phone.value;
-      const pere = perenimi.value;
-      const descr = description.value;
 
+  // Получаем значения и обрезаем пробелы
+  const name = firstNameInput.value.trim();
+  const lastName = lastNameInput.value.trim();
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+  const phone = phoneInput.value.trim();
+  const description = descriptionInput.value.trim();
+  const isAgreed = agreeCheckbox.checked;
+
+  // Проверяем валидацию
+  if (
+    nameReg.test(name) &&
+    nameReg.test(lastName) &&
+    emailReg.test(email) &&
+    passwordReg.test(password) &&
+    phoneReg.test(phone) &&
+    descriptionReg.test(description) &&
+    isAgreed
+  ) {
+    try {
       const response = await fetch("http://127.0.0.1:3000/reg", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, pass, phon, pere }),
+        body: JSON.stringify({
+          name,
+          pere: lastName,  // backend ожидает pere
+          email,
+          pass: password,  // backend ожидает pass
+          phon: phone      // backend ожидает phon
+          // описание (description) не передаем, т.к. его в backend нет
+        }),
       });
 
       const result = await response.json();
@@ -51,14 +56,14 @@ form.addEventListener("submit", async function (e) {
         alert("Регистрация успешна! Сейчас вас перенаправят на главную");
         window.location.href = "/index.html";
       } else {
-        alert(result.message);
+        alert(result.message || "Ошибка при регистрации");
       }
-    } catch (err) {
-      console.error(err);
-      alert("Ошибка сервера");
+    } catch (error) {
+      console.error(error);
+      alert("Ошибка сервера, попробуйте позже.");
     }
   } else {
     alert("Ошибка валидации! Проверьте поля формы.");
-    console.log("validation failed");
+    console.log("Validation failed");
   }
 });
