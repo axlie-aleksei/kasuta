@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Aleksei Dubtsak">
+  <link rel="stylesheet" href="css/xz.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+          crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="background-image">
+  <div class="d-flex justify-content-center align-items-center vh-100 bg-custom">
+    <div id="test4" class="card p-4 shadow" style="width: 350px;">
+      <h3 class="card-title text-center mb-3" style="color: white">Login</h3>
+      <form id="loginForm" novalidate>
+        <div class="mb-3">
+          <label for="email" class="form-label" style="color: white">Email</label>
+          <input type="email" class="form-control" id="email" placeholder="Sisesta email">
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label" style="color: white">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Sisesta Password">
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary" style="color: white">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="js/login.js"></script>
+</body>
+</html>

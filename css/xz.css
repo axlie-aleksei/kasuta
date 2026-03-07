@@ -1,0 +1,192 @@
+body{
+  overflow: hidden;
+}
+
+#test1 {
+   background: rgba(255, 255, 255, 0.08); /* лёгкая прозрачность */
+   border-radius: 20px;
+   border: 1px solid rgba(255, 255, 255, 0.25);
+
+   /* эффект стекла */
+   backdrop-filter: blur(10px);
+   -webkit-backdrop-filter: blur(10px);
+
+   /* тень для красоты */
+   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+ }
+
+/* чтобы текст нормально был виден */
+#test1 .card-title,
+#test1 p,
+#test1 small {
+  color: white;
+}
+
+#test2 {
+  background: rgba(255, 255, 255, 0.08); /* лёгкая прозрачность */
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  /* эффект стекла */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  /* тень для красоты */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* чтобы текст нормально был виден */
+#test2 .card-title,
+#test2 p,
+#test2 small {
+  color: white;
+}
+
+#test4{
+  background: rgba(255, 255, 255, 0.08); /* лёгкая прозрачность */
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  /* эффект стекла */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  /* тень для красоты */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+#test3 {
+  background: rgba(255, 255, 255, 0.08); /* лёгкая прозрачность */
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  /* эффект стекла */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  /* тень для красоты */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* чтобы текст нормально был виден */
+#test3 .card-title,
+#test3 p,
+#test3 small {
+  color: white;
+}
+
+.lesson-card {
+  display: block;
+  text-decoration: none;
+  color: white;
+
+  padding: 18px 22px;
+  margin-bottom: 20px;
+
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+
+  transition: 0.25s;
+}
+
+.lesson-inner {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.lesson-img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.lesson-text h4 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.lesson-text p {
+  margin: 3px 0 0;
+  font-size: 14px;
+  color: #e3e3e3;
+}
+
+.text-color {
+  color: #FFFFFF;
+}
+
+.text-padding {
+  margin-top: 20px;
+}
+
+.navbar-glass {
+  width: 100%;
+  padding: 12px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: rgba(255, 255, 255, 0.07);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+
+
+.menu {
+  display: flex;
+  gap: 25px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu a {
+  text-decoration: none;
+  color: white; /* обычный текст */
+  font-weight: 500;
+}
+
+.logo {
+  color: #ffffff; /* обычный текст */
+  font-weight: 600;
+  font-size: 18px;
+}
+
+
+.background-image {
+
+  text-align: center;
+}
+
+
+/* gpt */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  weight: 100%;
+}
+
+.background-image {
+  width: 100%;
+  height: 100vh;
+
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 1) 15%, rgba(0, 0, 0, 0.6) 30%, rgba(0, 0, 0, 0) 45%),
+  url('../DSC_1530.JPG');
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
