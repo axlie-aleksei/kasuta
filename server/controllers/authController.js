@@ -37,10 +37,10 @@ exports.login = (req, res) => {
       req.session.user = {
         id: user.id,
         email: user.email,
-        name: user.name,
+        name: user.fullname,
       };
 
-      console.log("user logged in", user.eesnimi);
+      console.log("user logged in", user.email);
 
       res.json({ success: true});
 
@@ -69,26 +69,45 @@ exports.register = async (req, res) => {
 
     const hashpass = await bcrypt.hash(pass, 10);
 
-    const sql ='INSERT INTO user (fullname, email, password, linn) VALUES (?,?,?,?)';
+    const sql = 'INSERT INTO users (fullname, email, password, city) VALUES (?,?,?,?)';
 
     pool.execute(sql, [fullname, email, hashpass, linn], (err) => {
 
-      if(err){
-        if (err.code === "ERR_DUP_ENTRY") {
+      if (err) {
+        console.error("Register DB error:", err.code, err.message);
+        if (err.code === "ER_DUP_ENTRY") {
           return res.status(409).json({ message: "email already in use" });
         }
-
-        return res.status(500).json({ message: "server error" });
-
+        return res.status(500).json({
+          message: "server error",
+          error: err.message
+        });
       }
 
       res.json({ success: true });
-
     });
 
   } catch (error) {
-    console.error("hashing or DB error:", error);
+    console.error("Register hashing error:", error);
+    res.status(500).json({
+      message: "server error",
+      error: error.message
+    });
+  }
+};
 
-    res.status(500).json({ message: "server error" });
+exports.logout = (req, res) => {
+  try {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ message: "Server error" });
+      }
+
+      // name задан в session middleware: rent_session
+      res.clearCookie("rent_session");
+      res.json({ success: true });
+    });
+  } catch (e) {
+    res.status(500).json({ message: "Server error" });
   }
 };

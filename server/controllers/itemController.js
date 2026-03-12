@@ -1,3 +1,5 @@
+const pool = require("../db");
+
 exports.addItem = (req, res) => {
 
   const { title, price } = req.body;
@@ -20,3 +22,36 @@ exports.addItem = (req, res) => {
   });
 
 };
+
+exports.getItems = async (req,res)=>{
+
+  try{
+
+    const [rows] =
+      await pool.promise().query(
+        `SELECT 
+           i.*,
+           (
+             SELECT ii.image
+             FROM item_images ii
+             WHERE ii.item_id = i.id
+             ORDER BY ii.id ASC
+             LIMIT 1
+           ) AS image
+         FROM items i
+         ORDER BY i.id DESC`
+      )
+
+    res.json(rows)
+
+  }catch(err){
+
+    console.log(err)
+
+    res.status(500).json({
+      error:"server error"
+    })
+
+  }
+
+}

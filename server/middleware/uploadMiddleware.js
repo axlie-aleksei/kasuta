@@ -1,25 +1,55 @@
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
+
+const uploadsDir = path.join(__dirname, "..", "..", "public", "uploads", "items");
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
 
 const storage = multer.diskStorage({
 
-  destination: (req, file, cb) => {
-    cb(null, "public/uploads");
+  destination:(req,file,cb)=>{
+    cb(null, uploadsDir)
   },
 
-  filename: (req, file, cb) => {
+  filename:(req,file,cb)=>{
 
-    const uniqueName =
-      Date.now() + "-" + Math.round(Math.random() * 1E9);
+    const name =
+      Date.now() +
+      "-" +
+      Math.round(Math.random()*1e9)
 
-    cb(null, uniqueName + path.extname(file.originalname));
+    cb(null,name + path.extname(file.originalname))
 
   }
 
-});
+})
 
 const upload = multer({
-  storage: storage
-});
 
-module.exports = upload;
+  storage,
+
+  limits:{
+    fileSize:5*1024*1024
+  },
+
+  fileFilter:(req,file,cb)=>{
+
+    const allowed = [
+      "image/jpeg",
+      "image/png",
+      "image/webp"
+    ]
+
+    if(allowed.includes(file.mimetype)){
+      cb(null,true)
+    }else{
+      cb(new Error("Invalid file type"),false)
+    }
+
+  }
+
+})
+
+module.exports = upload

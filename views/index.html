@@ -5,100 +5,115 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Minu blogi</title>
+  <title>kasuta</title>
 
-  <link rel="stylesheet" href="css/xz.css">
+  <link rel="stylesheet" href="/css/xz.css">
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
 
-<body>
+<body class="background-image" style="overflow-y: auto;">
 
-<div class="background-image">
+  <nav class="tm-nav">
+    <div class="tm-nav__inner container-fluid px-4">
+      <a href="index.html" class="tm-logo">
+        <span class="tm-logo__mark">⌁</span>
+        <span class="tm-logo__text">kasuta</span>
+      </a>
 
-  <!-- NAVBAR -->
-  <nav class="navbar-glass">
+      <div class="tm-nav__links">
+        <a class="tm-link tm-link--active" href="index.html">Главная</a>
+        <a class="tm-link" href="#">Каталог</a>
+        <a class="tm-link" href="#">О нас</a>
+        <a class="tm-link" href="#">Контакты</a>
+      </div>
 
-    <a href="index.html" class="logo">Minu blogi</a>
+      <div class="tm-nav__actions">
+        <button type="button" class="tm-icon-btn" aria-label="Favorites">♡</button>
+        <button type="button" class="tm-icon-btn" aria-label="Cart">🛒</button>
 
-    <ul class="menu">
-
-      <li><a href="login.html">Login</a></li>
-      <li><a href="index.html">Avaleht</a></li>
-      <li><a href="#">Blogi</a></li>
-      <li><a href="#">CV</a></li>
-      <li><a href="#">Kontakt</a></li>
-      <li><a href="profile.html">Profile</a></li>
-
-    </ul>
-
+        <button type="button" class="tm-pill tm-pill--solid nav-auth" style="display:none;" data-action="open-add-item">+ Добавить</button>
+        <a class="tm-pill tm-pill--ghost nav-login" href="registr.html">Регистрация</a>
+        <a class="tm-pill tm-pill--ghost nav-login" href="login.html">Вход</a>
+        <a class="tm-pill tm-pill--solid nav-profile" style="display:none;" href="profile.html">Профиль</a>
+        <a class="tm-pill tm-pill--solid nav-logout" style="display:none;" href="#" data-action="logout">Выход</a>
+      </div>
+    </div>
   </nav>
 
-
-  <!-- BLOG POSTS -->
-  <section id="posts" class="mb-5 container">
-
-    <h2 class="text-white text-center mb-5">
-      Blogipostitused
-    </h2>
-
-    <div class="row g-4">
-
-      <div class="col-md-4">
-        <div class="card post-card shadow h-100">
-          <div class="card-body text-center">
-
-            <h5 class="card-title mb-3">
-              Minu õpingud tarkvaraarendajana
-            </h5>
-
-            <p class="card-text">
-              Õpin Kutsehariduskeskuses teisel kursusel.
-              Meie õppekavas on Python, Java, JavaScript ning veebitehnoloogiad.
-            </p>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="card post-card shadow h-100">
-          <div class="card-body text-center">
-
-            <h5 class="card-title mb-3">
-              Minu hobid ja vaba aeg
-            </h5>
-
-            <p class="card-text">
-              Mängin CS:GO-d, oskan kitarri mängida,
-              monteerin videoid ning kasutan Photoshopi.
-            </p>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="card post-card shadow h-100">
-          <div class="card-body text-center">
-
-            <h5 class="card-title mb-3">
-              Minu tulevikuplaanid IT-valdkonnas
-            </h5>
-
-            <p class="card-text">
-              Tahan saada professionaalseks tarkvaraarendajaks.
-            </p>
-
-          </div>
-        </div>
-      </div>
-
+  <main class="container py-4">
+    <div class="tm-grid-header mb-3">
+      <h2 class="tm-title">Каталог</h2>
+      <div class="tm-subtitle">Найдите то, что вам нужно</div>
     </div>
-  </section>
 
-</div>
+    <div id="itemsContainer" class="row g-4">
+      <!-- JS вставит карточки -->
+    </div>
+  </main>
+
+  <!-- Add item modal (opens from + Добавить) -->
+  <div class="km-modal" id="addItemModal" style="display:none;">
+    <div class="km-modal__backdrop" data-action="close-add-item"></div>
+    <div class="km-modal__panel">
+      <div class="km-modal__header">
+        <div class="km-modal__title">
+          <span class="km-dot">＋</span>
+          Добавить товар
+        </div>
+        <button type="button" class="km-modal__close" aria-label="Close" data-action="close-add-item">×</button>
+      </div>
+
+      <div class="km-modal__body">
+        <form id="itemForm" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label class="form-label">Название товара</label>
+            <input type="text" name="title" class="form-control" placeholder="Например: Смартфон ProMax" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Описание</label>
+            <textarea name="description" class="form-control" rows="4" placeholder="Краткое описание товара..."></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Цена (€)</label>
+            <input type="number" name="price" class="form-control" placeholder="Например: 19.99" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Город</label>
+            <input type="text" name="city" class="form-control" placeholder="Например: Tallinn">
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Фото</label>
+            <div class="km-upload">
+              <input id="imagesInput" type="file" name="images" class="km-upload__input" multiple accept="image/*">
+              <button type="button" class="km-upload__btn" data-action="pick-images" aria-label="Upload photos">
+                <svg class="km-upload__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 3v10m0 0l-4-4m4 4l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M4 15v3a3 3 0 003 3h10a3 3 0 003-3v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </button>
+              <div class="km-upload__hint">Нажмите, чтобы выбрать фото (будет предпросмотр)</div>
+            </div>
+            <div id="imagePreviews" class="km-previews" style="display:none;"></div>
+          </div>
+
+          <div class="km-modal__footer">
+            <button type="button" class="km-btn" data-action="close-add-item">Отмена</button>
+            <button type="submit" class="km-btn km-btn--primary">Добавить товар</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<script src="/js/auth-nav.js"></script>
+<script src="/js/items.js"></script>
+<script src="/js/addItem.js"></script>
 
 </body>
 </html>

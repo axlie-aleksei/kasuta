@@ -2,18 +2,76 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile - Minu blogi</title>
-  <link rel="stylesheet" href="css/xz.css">
+  <link rel="stylesheet" href="/css/xz.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .avatar-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .avatar-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    .avatar-upload-wrap { margin: 0; }
+    .avatar-input-hidden {
+      position: absolute !important;
+      width: 0.1px !important;
+      height: 0.1px !important;
+      opacity: 0;
+      overflow: hidden;
+      z-index: -1;
+    }
+    .avatar-upload-btn {
+      display: inline-block;
+      padding: 8px 20px;
+      background: rgba(0, 255, 136, 0.2);
+      color: #00ff88;
+      border: 1px solid #00ff88;
+      border-radius: 24px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .avatar-upload-btn:hover {
+      background: #00ff88;
+      color: #000;
+    }
+  </style>
 </head>
 <body class="background-image" style="overflow-y: auto;">
 
-<nav class="navbar-glass">
-  <a href="index.html" class="logo">Minu blogi</a>
-  <ul class="menu">
-    <li><a href="index.html">Avaleht</a></li>
-    <li><a href="login.html" style="color: #ff4444;">Logout</a></li>
-  </ul>
+<nav class="tm-nav">
+  <div class="tm-nav__inner container-fluid px-4">
+    <a href="index.html" class="tm-logo">
+      <span class="tm-logo__mark">⌁</span>
+      <span class="tm-logo__text">kasuta</span>
+    </a>
+
+    <div class="tm-nav__links">
+      <a class="tm-link" href="index.html">Главная</a>
+      <a class="tm-link" href="#">Каталог</a>
+      <a class="tm-link" href="#">О нас</a>
+      <a class="tm-link" href="#">Контакты</a>
+    </div>
+
+    <div class="tm-nav__actions">
+      <button type="button" class="tm-icon-btn" aria-label="Favorites">♡</button>
+      <button type="button" class="tm-icon-btn" aria-label="Cart">🛒</button>
+
+      <a class="tm-pill tm-pill--solid nav-auth" style="display:none;" href="addItem.html">+ Добавить</a>
+      <a class="tm-pill tm-pill--ghost nav-login" href="registr.html">Регистрация</a>
+      <a class="tm-pill tm-pill--ghost nav-login" href="login.html">Вход</a>
+      <button type="button" class="tm-pill tm-pill--solid nav-logout" data-action="logout" style="display:none;">Выход</button>
+    </div>
+  </div>
 </nav>
 
 <div class="container" style="margin-top: 100px; margin-bottom: 50px;">
@@ -21,16 +79,23 @@
 
     <div class="col-md-4">
       <div class="post-card p-4 text-center">
-        <div class="mb-3" style="width: 120px; height: 120px; border: 3px solid #00ff88; border-radius: 50%; margin: 0 auto; overflow: hidden; background: #504242;">
-
+        <div class="avatar-block">
+          <div class="avatar-circle">
+            <img id="avatarImg"
+                 src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Ccircle fill='%23444' cx='60' cy='60' r='60'/%3E%3Ccircle fill='%23666' cx='60' cy='50' r='18'/%3E%3Cpath fill='%23666' d='M35 115c0-14 11-25 25-25s25 11 25 25z'/%3E%3C/svg%3E"
+                 style="width:100%;height:100%;object-fit:cover;">
+          </div>
+          <div class="avatar-upload-wrap">
+            <input type="file" id="avatarInput" accept="image/*" class="avatar-input-hidden">
+            <label for="avatarInput" class="avatar-upload-btn">Vali pilt</label>
+          </div>
         </div>
-        <h4 style="color: #00ff88; font-weight: 700;">Aleksei Dubtsak</h4>
-        <p class="small text-muted mb-4">Software Developer Student</p>
+        <h4 id="profileName" style="color: #00ff88; font-weight: 700;"></h4>
 
         <div class="list-group list-group-flush bg-transparent">
-          <a href="#" class="list-group-item bg-transparent text-white border-secondary text-start ps-0" style="border-bottom: 1px solid rgba(3,239,126,0.93) !important;">📦 Minu tellimused</a>
-          <a href="#" class="list-group-item bg-transparent text-white border-secondary text-start ps-0" style="border-bottom: 1px solid rgba(0,255,136,0.93) !important;">⚙️ Seaded</a>
-          <a href="#" class="list-group-item bg-transparent text-white border-secondary text-start ps-0">💳 Maksed</a>
+          <a href="#" class="list-group-item bg-transparent text-white border-secondary text-start ps-0" style="border-bottom: 1px solid rgba(3,239,126,0.93) !important;">Minu tellimused</a>
+          <a href="#" class="list-group-item bg-transparent text-white border-secondary text-start ps-0" style="border-bottom: 1px solid rgba(0,255,136,0.93) !important;">️Seaded</a>
+          <a href="#" class="list-group-item bg-transparent text-white border-secondary text-start ps-0">Maksed</a>
         </div>
       </div>
     </div>
@@ -39,38 +104,53 @@
       <div class="post-card p-5">
         <h3 class="mb-4" style="color: #0fe458;">Kasutaja andmed</h3>
 
-        <div class="row mb-4">
-          <div class="col-sm-4 text-muted">Full Name</div>
-          <div class="col-sm-8 text-white fw-bold">Aleksei Dubtsak</div>
-        </div>
-        <div class="row mb-4">
-          <div class="col-sm-4 text-muted">Email</div>
-          <div class="col-sm-8 text-white fw-bold">aleksei@example.com</div>
-        </div>
-        <div class="row mb-4">
-          <div class="col-sm-4 text-muted">Kool</div>
-          <div class="col-sm-8 text-white fw-bold">Kutsehariduskeskus</div>
-        </div>
-        <div class="row mb-4">
-          <div class="col-sm-4 text-muted">Skills</div>
-          <div class="col-sm-8">
-            <span class="badge bg-dark border border-success text-success me-1">HTML</span>
-            <span class="badge bg-dark border border-success text-success me-1">CSS</span>
-            <span class="badge bg-dark border border-success text-success me-1">JS</span>
-            <span class="badge bg-dark border border-success text-success me-1">Java</span>
+        <div id="profileView">
+          <div class="row mb-4">
+            <div class="col-sm-4 text-muted">Full Name</div>
+            <div class="col-sm-8 text-white fw-bold" id="profileFullname"></div>
+          </div>
+          <div class="row mb-4">
+            <div class="col-sm-4 text-muted">Email</div>
+            <div class="col-sm-8 text-white fw-bold" id="profileEmail"></div>
+          </div>
+          <div class="row mb-4">
+            <div class="col-sm-4 text-muted">Linn</div>
+            <div class="col-sm-8 text-white fw-bold" id="profileCity"></div>
+          </div>
+          <hr style="border-color: rgba(47,51,50,0.95);">
+          <div class="mt-4">
+            <button type="button" id="muudaProfiiliBtn" class="btn btn-primary px-4 py-2" style="color: #000000; font-weight: 600;">Muuda profiili</button>
           </div>
         </div>
 
-        <hr style="border-color: rgba(47,51,50,0.95);">
-
-        <div class="mt-4">
-          <button class="btn btn-primary px-4 py-2" style="color: #000000; font-weight: 600;">Muuda profiili</button>
-        </div>
+        <form id="profileEditForm" style="display: none;">
+          <div class="mb-4">
+            <label class="form-label text-muted">Full Name</label>
+            <input type="text" id="editFullname" class="form-control bg-dark text-white border-secondary" required>
+          </div>
+          <div class="mb-4">
+            <label class="form-label text-muted">Email</label>
+            <input type="email" id="editEmail" class="form-control bg-dark text-white border-secondary" required>
+            <div class="mt-1" style="font-size: 0.9rem; color: rgba(0, 255, 136, 0.85);">Kui muudate e-posti, peate järgmisel sisselogimisel kasutama uut aadressi ja sama parooli.</div>
+          </div>
+          <div class="mb-4">
+            <label class="form-label text-muted">Linn</label>
+            <input type="text" id="editCity" class="form-control bg-dark text-white border-secondary" required>
+          </div>
+          <hr style="border-color: rgba(47,51,50,0.95);">
+          <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-primary px-4 py-2" style="color: #000000; font-weight: 600;">Salvesta</button>
+            <button type="button" id="profileEditCancel" class="btn btn-outline-secondary px-4 py-2">Tühista</button>
+          </div>
+        </form>
       </div>
     </div>
 
   </div>
 </div>
 
+<script src="/js/avatar.js"></script>
+<script src="/js/auth-nav.js"></script>
+<script src="/js/profile.js"></script>
 </body>
 </html>

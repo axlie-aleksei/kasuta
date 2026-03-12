@@ -1,0 +1,815 @@
+/* ========== BASE ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  background: #050508;
+  color: #fff;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* ========== LIQUID GLASS — общий эффект ========== */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(0, 255, 136, 0.05);
+  transition: all 0.3s ease;
+}
+
+.liquid-glass:hover {
+  border-color: rgba(0, 255, 136, 0.2);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 12px 40px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(0, 255, 136, 0.08);
+}
+
+/* ========== ФОН страниц ========== */
+.background-image {
+  min-height: 100vh;
+  width: 100%;
+  background: radial-gradient(ellipse at 50% 0%, rgba(0, 40, 30, 0.4) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 80%, rgba(0, 255, 136, 0.03) 0%, transparent 40%),
+              #050508;
+  background-attachment: fixed;
+}
+
+/* ========== NAVBAR — liquid glass ========== */
+.navbar-glass {
+  width: 100%;
+  padding: 14px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.tm-nav {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+}
+
+.tm-nav__inner {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.tm-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.tm-logo__mark {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: rgba(0, 255, 136, 0.12);
+  border: 1px solid rgba(0, 255, 136, 0.25);
+  box-shadow: 0 0 18px rgba(0, 255, 136, 0.12);
+  color: #00ff88;
+  font-size: 18px;
+}
+
+.tm-logo__text {
+  font-size: 16px;
+}
+
+.tm-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-left: 6px;
+}
+
+.tm-link {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.tm-link:hover {
+  color: #00ff88;
+  background: rgba(0, 255, 136, 0.06);
+}
+
+.tm-link--active {
+  color: #00ff88;
+}
+
+.tm-nav__actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tm-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0 4px;
+}
+
+.tm-icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.9);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tm-icon-btn:hover {
+  border-color: rgba(0, 255, 136, 0.25);
+  box-shadow: 0 0 18px rgba(0, 255, 136, 0.12);
+  color: #00ff88;
+}
+
+/* Logout icon accent */
+.tm-icon-btn.tm-icon-btn--logout:hover {
+  border-color: rgba(0, 255, 136, 0.35);
+  box-shadow: 0 0 22px rgba(0, 255, 136, 0.18);
+  transform: translateY(-1px);
+}
+
+/* Password toggle input group */
+.tm-pass {
+  position: relative;
+}
+
+.tm-pass__input {
+  padding-right: 44px !important;
+}
+
+.tm-pass__toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: none;
+  background: none;
+  color: #00ff88 !important;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+
+.tm-pass__toggle svg,
+.tm-pass__toggle svg * {
+  stroke: currentColor !important;
+  fill: none !important;
+}
+
+.tm-pass__toggle:hover {
+  border-color: rgba(0, 255, 136, 0.25);
+  box-shadow: 0 0 18px rgba(0, 255, 136, 0.12);
+  color: #00ff88 !important;
+}
+
+.tm-pass__icon {
+  width: 18px;
+  height: 18px;
+  color: currentColor;
+  display: block;
+}
+
+.tm-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 13px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.tm-pill--ghost {
+  color: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tm-pill--ghost:hover {
+  color: #00ff88;
+  border-color: rgba(0, 255, 136, 0.25);
+  box-shadow: 0 0 18px rgba(0, 255, 136, 0.12);
+}
+
+.tm-pill[data-action="logout"] {
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.tm-pill--solid {
+  color: #062011;
+  background: linear-gradient(135deg, #00c853, #00ff88);
+  border: 0;
+}
+
+.tm-pill--solid:hover {
+  box-shadow: 0 0 24px rgba(0, 255, 136, 0.35);
+  transform: translateY(-1px);
+}
+
+.tm-grid-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tm-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.tm-subtitle {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.menu {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+
+.menu a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.menu a:hover {
+  color: #00ff88;
+}
+
+.logo {
+  color: #fff;
+  font-weight: 600;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+.logo:hover {
+  color: #00ff88;
+}
+
+/* ========== КАРТОЧКИ — liquid glass ========== */
+.post-card {
+  background: rgba(255, 255, 255, 0.03) !important;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 20px !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 8px 32px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(0, 255, 136, 0.05) !important;
+  color: #fff !important;
+  transition: all 0.3s ease;
+}
+
+.post-card:hover {
+  border-color: rgba(0, 255, 136, 0.25) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(0, 255, 136, 0.1) !important;
+  transform: translateY(-2px);
+}
+
+.post-card .card-body,
+.post-card .card-title,
+.post-card .card-text {
+  color: #fff;
+}
+
+.post-card .card-title {
+  color: #00ff88;
+  font-weight: 600;
+}
+
+.post-card .card-text {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* Карточки #test1–4 (главная) */
+#test1, #test2, #test3, #test4,
+.lesson-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 8px 32px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s ease;
+}
+
+#test1:hover, #test2:hover, #test3:hover, #test4:hover,
+.lesson-card:hover {
+  border-color: rgba(0, 255, 136, 0.25);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 255, 136, 0.08);
+  transform: translateY(-4px);
+}
+
+#test1 .card-title, #test2 .card-title, #test3 .card-title, #test4 .card-title,
+#test1 p, #test2 p, #test3 p, #test4 p,
+#test1 small, #test2 small, #test3 small, #test4 small {
+  color: #fff;
+}
+
+.lesson-card {
+  display: block;
+  text-decoration: none;
+  color: #fff;
+  padding: 18px 22px;
+  margin-bottom: 20px;
+  border-radius: 18px;
+}
+
+.lesson-inner {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.lesson-img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.lesson-text h4 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.lesson-text p {
+  margin-top: 3px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* ========== Секция постов / заголовки ========== */
+#posts h2 {
+  color: #00ff88;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Карточки товаров на главной */
+#itemsContainer .card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 8px 32px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s ease;
+}
+
+#itemsContainer .card:hover {
+  border-color: rgba(0, 255, 136, 0.25);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 255, 136, 0.08);
+  transform: translateY(-4px);
+}
+
+#itemsContainer .card .card-title { color: #00ff88; }
+#itemsContainer .card .card-text { color: rgba(255, 255, 255, 0.85); }
+#itemsContainer .card .card-img-top { border-radius: 20px 20px 0 0; }
+
+/* TechMarket product cards */
+.tm-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 8px 32px rgba(0, 0, 0, 0.35);
+  transition: all 0.25s ease;
+  height: 100%;
+}
+
+.tm-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 255, 136, 0.25);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 255, 136, 0.08);
+}
+
+.tm-card__img-wrap {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.tm-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.tm-card__price {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-weight: 900;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(0, 255, 136, 0.12);
+  border: 1px solid rgba(0, 255, 136, 0.25);
+  box-shadow: 0 0 18px rgba(0, 255, 136, 0.12);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.tm-card__body {
+  padding: 14px 14px 16px;
+}
+
+.tm-card__title {
+  font-size: 16px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.92);
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.tm-card__desc {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.62);
+  line-height: 1.4;
+  max-height: 3.9em;
+  overflow: hidden;
+}
+
+@media (max-width: 992px) {
+  .tm-nav__links { display: none; }
+}
+
+.text-color { color: #fff; }
+.text-padding { margin-top: 20px; }
+
+/* ========== ФОРМЫ — поля в стиле liquid glass ========== */
+.form-control {
+  background: rgba(0, 0, 0, 0.35) !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  color: #fff !important;
+  border-radius: 12px;
+  transition: all 0.25s ease;
+}
+
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+.form-control,
+.form-control:focus {
+  caret-color: #00ff88;
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+  opacity: 0.85;
+}
+
+.form-control:focus {
+  background: rgba(0, 0, 0, 0.50) !important;
+  border-color: rgba(0, 255, 136, 0.5) !important;
+  box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.15) !important;
+  color: #fff !important;
+  outline: none;
+}
+
+.form-control.bg-dark {
+  background: rgba(0, 0, 0, 0.35) !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+}
+
+/* File input should not be default white */
+input[type="file"].form-control {
+  background: rgba(0, 0, 0, 0.35) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* ========== Upload (icon + previews) ========== */
+.km-upload {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.km-upload__btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex: 0 0 auto;
+}
+
+.km-upload__btn:hover {
+  border-color: rgba(0, 255, 136, 0.25);
+  box-shadow: 0 0 18px rgba(0, 255, 136, 0.12);
+  transform: translateY(-1px);
+}
+
+.km-upload__icon {
+  width: 20px;
+  height: 20px;
+  color: #00ff88;
+}
+
+.km-upload__hint {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.km-upload__input {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.km-previews {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.km-preview {
+  aspect-ratio: 1 / 1;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.km-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 520px) {
+  .km-previews { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ========== КНОПКИ ========== */
+.btn-primary {
+  background: linear-gradient(135deg, #00c853, #00ff88);
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #00ff88, #00c853);
+  box-shadow: 0 0 24px rgba(0, 255, 136, 0.4);
+  transform: translateY(-1px);
+}
+
+/* ========== Страница профиля — читаемый текст в карточках ========== */
+.post-card .form-label,
+.post-card .text-muted {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.post-card .btn-outline-secondary {
+  color: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  background: transparent;
+  border-radius: 12px;
+}
+
+.post-card .btn-outline-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* ========== MODAL GLASS (Add item like screenshot) ========== */
+.km-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.km-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.km-modal__panel {
+  position: relative;
+  width: min(720px, 94vw);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(26px);
+  -webkit-backdrop-filter: blur(26px);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+
+.km-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.km-modal__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.km-modal__title .km-dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 255, 136, 0.12);
+  border: 1px solid rgba(0, 255, 136, 0.25);
+  color: #00ff88;
+  font-weight: 900;
+}
+
+.km-modal__close {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: all 0.2s ease;
+}
+
+.km-modal__close:hover {
+  border-color: rgba(0, 255, 136, 0.25);
+  box-shadow: 0 0 18px rgba(0, 255, 136, 0.12);
+  color: #00ff88;
+}
+
+.km-modal__body {
+  padding: 18px 18px 16px;
+}
+
+.km-modal .form-label {
+  color: rgba(255, 255, 255, 0.75) !important;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.km-modal .form-control {
+  border-radius: 12px;
+}
+
+.km-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 14px 16px 16px;
+}
+
+.km-btn {
+  height: 42px;
+  padding: 0 18px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.92);
+  transition: all 0.2s ease;
+}
+
+.km-btn:hover {
+  border-color: rgba(0, 255, 136, 0.25);
+  box-shadow: 0 0 18px rgba(0, 255, 136, 0.12);
+}
+
+.km-btn--primary {
+  border: 0;
+  color: #062011;
+  background: linear-gradient(135deg, #00c853, #00ff88);
+}
+
+.km-btn--primary:hover {
+  box-shadow: 0 0 24px rgba(0, 255, 136, 0.35);
+  transform: translateY(-1px);
+}
+
+/* ========== Ссылки в формах ========== */
+.post-card a[href] {
+  color: #00ff88;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.post-card a[href]:hover {
+  text-decoration: underline;
+}
+
+/* ========== List group в профиле ========== */
+.list-group-item.bg-transparent {
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 40px;
+  margin-left: 40px;
+}

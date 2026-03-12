@@ -20,10 +20,11 @@ form.addEventListener("submit", async (e) => {
   }
 
   try {
-    const response = await fetch("http://127.0.0.1:3000/login", {
+    const response = await fetch("/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
+      credentials: "include",
     });
 
     // Если сервер отвечает перенаправлением (редиректом)
@@ -35,8 +36,8 @@ form.addEventListener("submit", async (e) => {
     const result = await response.json();
 
     if (response.ok) {
-      // Здесь можно обработать успешный логин (если не редирект)
-      alert("Вход успешен!");
+      window.location.href = "/index.html";
+      return;
     } else {
       // Ошибка от сервера, например неправильный пароль или пользователь не найден
       alert(result.message || "Ошибка входа");
@@ -45,5 +46,23 @@ form.addEventListener("submit", async (e) => {
   } catch (error) {
     console.error("Ошибка сети или сервера:", error);
     alert("Ошибка сервера, попробуйте позже.");
+  }
+});
+
+document.addEventListener("click", (e) => {
+  const t = e.target;
+  if (!t) return;
+  const btn = t.closest && t.closest("[data-action='toggle-password']");
+  if (!btn) return;
+  e.preventDefault();
+  if (!passwordInput) return;
+  const isPassword = passwordInput.type === "password";
+  passwordInput.type = isPassword ? "text" : "password";
+  btn.setAttribute("aria-pressed", String(isPassword));
+  const showIcon = btn.querySelector(".tm-pass__icon--show");
+  const hideIcon = btn.querySelector(".tm-pass__icon--hide");
+  if (showIcon && hideIcon) {
+    showIcon.style.display = isPassword ? "none" : "";
+    hideIcon.style.display = isPassword ? "" : "none";
   }
 });
