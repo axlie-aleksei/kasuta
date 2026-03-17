@@ -27,9 +27,13 @@ exports.getItems = async (req,res)=>{
 
   try{
 
+    const page = parseInt(req.query.page) || 1
+    const limit = 12
+    const offset = (page - 1) * limit
+
     const [rows] =
       await pool.promise().query(
-        `SELECT 
+        `SELECT
            i.*,
            (
              SELECT ii.image
@@ -39,7 +43,9 @@ exports.getItems = async (req,res)=>{
              LIMIT 1
            ) AS image
          FROM items i
-         ORDER BY i.id DESC`
+         ORDER BY i.id DESC
+         LIMIT ? OFFSET ?`,
+        [limit, offset]
       )
 
     res.json(rows)
