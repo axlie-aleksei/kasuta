@@ -2,9 +2,17 @@ const form = document.getElementById("loginForm");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 
-// Регулярные выражения для валидации
 const emailReg = /^[A-Za-z0-9._%+-]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,}$/;
 const passwordReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,32}$/;
+
+function toggleLoginPasswordIcons(btn, plaintextVisible) {
+  const showIcon = btn.querySelector(".site-pass__icon--show");
+  const hideIcon = btn.querySelector(".site-pass__icon--hide");
+  if (showIcon && hideIcon) {
+    showIcon.classList.toggle("is-hidden", plaintextVisible);
+    hideIcon.classList.toggle("is-hidden", !plaintextVisible);
+  }
+}
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -12,10 +20,8 @@ form.addEventListener("submit", async (e) => {
   const email = emailInput.value.trim();
   const password = passwordInput.value;
 
-  // Валидация email и пароля
   if (!emailReg.test(email) || !passwordReg.test(password)) {
-    alert("Ошибка валидации! Проверьте правильность email и пароля.");
-    console.log("Validation failed");
+    alert("Проверьте формат email и пароля (8–32 символа, латиница, заглавная, строчная, цифра).");
     return;
   }
 
@@ -27,7 +33,6 @@ form.addEventListener("submit", async (e) => {
       credentials: "include",
     });
 
-    // Если сервер отвечает перенаправлением (редиректом)
     if (response.redirected) {
       window.location.href = response.url;
       return;
@@ -39,13 +44,11 @@ form.addEventListener("submit", async (e) => {
       window.location.href = "/index.html";
       return;
     } else {
-      // Ошибка от сервера, например неправильный пароль или пользователь не найден
       alert(result.message || "Ошибка входа");
-      console.error(result.message);
     }
   } catch (error) {
-    console.error("Ошибка сети или сервера:", error);
-    alert("Ошибка сервера, попробуйте позже.");
+    console.error(error);
+    alert("Ошибка сети или сервера.");
   }
 });
 
@@ -59,10 +62,5 @@ document.addEventListener("click", (e) => {
   const isPassword = passwordInput.type === "password";
   passwordInput.type = isPassword ? "text" : "password";
   btn.setAttribute("aria-pressed", String(isPassword));
-  const showIcon = btn.querySelector(".tm-pass__icon--show");
-  const hideIcon = btn.querySelector(".tm-pass__icon--hide");
-  if (showIcon && hideIcon) {
-    showIcon.style.display = isPassword ? "none" : "";
-    hideIcon.style.display = isPassword ? "" : "none";
-  }
+  toggleLoginPasswordIcons(btn, passwordInput.type === "text");
 });

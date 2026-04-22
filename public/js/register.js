@@ -1,5 +1,14 @@
 const form = document.getElementById("registerForm");
 
+function togglePasswordIcons(btn, plaintextVisible) {
+  const showIcon = btn.querySelector(".site-pass__icon--show");
+  const hideIcon = btn.querySelector(".site-pass__icon--hide");
+  if (showIcon && hideIcon) {
+    showIcon.classList.toggle("is-hidden", plaintextVisible);
+    hideIcon.classList.toggle("is-hidden", !plaintextVisible);
+  }
+}
+
 function togglePassword(btn) {
   const selector = btn.getAttribute("data-target");
   const input = selector ? document.querySelector(selector) : null;
@@ -8,12 +17,7 @@ function togglePassword(btn) {
   input.type = isPassword ? "text" : "password";
 
   btn.setAttribute("aria-pressed", String(isPassword));
-  const showIcon = btn.querySelector(".tm-pass__icon--show");
-  const hideIcon = btn.querySelector(".tm-pass__icon--hide");
-  if (showIcon && hideIcon) {
-    showIcon.style.display = isPassword ? "none" : "";
-    hideIcon.style.display = isPassword ? "" : "none";
-  }
+  togglePasswordIcons(btn, input.type === "text");
 }
 
 document.addEventListener("click", (e) => {
@@ -33,10 +37,10 @@ form.addEventListener("submit", async (e) => {
   const email = form.querySelector("input[name='email']").value.trim();
   const password = form.querySelector("input[name='password']").value;
   const confirm = form.querySelector("input[name='confirm']").value;
-  const linn = form.querySelector("input[name='linn']").value.trim();
+  const city = form.querySelector("input[name='city']").value.trim();
 
   if (password !== confirm) {
-    alert("Passwords do not match");
+    alert("Пароли не совпадают");
     return;
   }
 
@@ -49,7 +53,7 @@ form.addEventListener("submit", async (e) => {
       fullname,
       email,
       pass: password,
-      linn
+      city
     }),
     credentials: "include"
   });
@@ -59,7 +63,7 @@ form.addEventListener("submit", async (e) => {
   if (data.success) {
     window.location.href = "/login.html";
   } else {
-    alert(data.error || data.message || "Registration failed");
+    alert(data.error || data.message || "Ошибка регистрации");
     console.error("Register error:", data);
   }
 

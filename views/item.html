@@ -3,22 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Item - Minu blogi</title>
+  <script src="/js/theme.js"></script>
+  <title>Товар — kasuta</title>
   <link rel="stylesheet" href="/css/xz.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+    crossorigin="anonymous">
 </head>
-<body class="background-image" style="overflow-y: auto;">
-  <nav class="navbar-glass">
-    <a href="index.html" class="logo">Minu blogi</a>
-    <ul class="menu">
-      <li><a href="index.html">Avaleht</a></li>
-      <li class="nav-login"><a href="login.html">Login</a></li>
-      <li class="nav-profile" style="display: none;"><a href="profile.html">Profile</a></li>
-    </ul>
+<body class="background-image layout-page-scroll">
+  <nav class="site-nav">
+    <div class="site-nav__inner container-fluid px-4">
+      <a href="index.html" class="site-logo">
+        <span class="site-logo__mark"><svg class="site-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 4 19 20H5L12 4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+        <span class="site-logo__text">kasuta</span>
+      </a>
+      <div class="site-nav__links">
+        <a class="site-link" href="index.html">Главная</a>
+        <a class="site-link" href="catalog.html">Каталог</a>
+        <a class="site-link" href="#">О нас</a>
+        <a class="site-link" href="#">Контакты</a>
+      </div>
+      <div class="site-nav__actions">
+        <button type="button" class="site-icon-btn" aria-label="Избранное"><svg class="site-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 20.5s-6.2-3.9-8.5-7.7c-1.1-1.8.1-4.7 2.8-4.7 1.6 0 2.8.9 3.2 2 .4-1.1 1.6-2 3.2-2 2.7 0 3.9 2.9 2.8 4.7-2.3 3.8-8.5 7.7-8.5 7.7z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+        <button type="button" class="site-icon-btn" aria-label="Корзина"><svg class="site-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6.5 6h13l-1.5 8.2a2 2 0 0 1-2 1.6H9.2a2 2 0 0 1-1.9-1.3L5.2 4H3" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="19" r="1.3" fill="currentColor"/><circle cx="16" cy="19" r="1.3" fill="currentColor"/></svg></button>
+        <a class="site-pill site-pill--ghost nav-login" href="registr.html">Регистрация</a>
+        <a class="site-pill site-pill--ghost nav-login" href="login.html">Вход</a>
+        <a class="site-pill site-pill--solid nav-profile is-hidden" href="profile.html">Профиль</a>
+        <button type="button" class="site-icon-btn site-icon-btn--logout nav-logout is-hidden" data-action="logout" aria-label="Выход"><svg class="site-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M10 17V7H5v10h5zm4 0h7v-2.5M17 8.5 21 12l-4 3.5" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+    </div>
   </nav>
   <div class="container py-5">
     <div class="post-card p-5">
-      <div id="itemContent"><!-- контент товара подгружается скриптом --></div>
+      <div id="itemContent"></div>
     </div>
   </div>
   <script src="/js/auth-nav.js"></script>

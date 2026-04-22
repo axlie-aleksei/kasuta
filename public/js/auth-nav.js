@@ -3,16 +3,16 @@
     .then(function (res) {
       if (res.ok) {
         document.querySelectorAll(".nav-profile").forEach(function (el) {
-          el.style.display = "";
+          el.classList.remove("is-hidden");
         });
         document.querySelectorAll(".nav-login").forEach(function (el) {
-          el.style.display = "none";
+          el.classList.add("is-hidden");
         });
         document.querySelectorAll(".nav-logout").forEach(function (el) {
-          el.style.display = "";
+          el.classList.remove("is-hidden");
         });
         document.querySelectorAll(".nav-auth").forEach(function (el) {
-          el.style.display = "";
+          el.classList.remove("is-hidden");
         });
       }
     })

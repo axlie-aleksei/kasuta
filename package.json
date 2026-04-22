@@ -1,5 +1,5 @@
 {
-  "name": " ",
+  "name": "kasuta",
   "version": "0.0.1",
   "description": "",
   "private": true,
@@ -11,7 +11,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --open --config webpack.config.dev.js",
-    "build": "webpack --config webpack.config.prod.js"
+    "build": "webpack --config webpack.config.prod.js",
+    "server": "node server/app.js"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^11.0.0",
@@ -32,6 +33,7 @@
     "iconv-lite": "^0.7.2",
     "multer": "^2.1.1",
     "mysql2": "^3.19.0",
+    "on-headers": "^1.1.0",
     "uuid": "^13.0.0"
   }
 }

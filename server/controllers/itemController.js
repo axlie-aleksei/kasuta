@@ -27,7 +27,8 @@ exports.getItems = async (req,res)=>{
 
   try{
 
-    const page = parseInt(req.query.page) || 1
+    const pageRaw = parseInt(String(req.query.page), 10);
+    const page = Math.min(Math.max(Number.isFinite(pageRaw) ? pageRaw : 1, 1), 500);
     const limit = 12
     const offset = (page - 1) * limit
 

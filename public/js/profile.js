@@ -29,17 +29,17 @@ async function loadProfile() {
 function showProfileView() {
   var view = document.getElementById("profileView");
   var form = document.getElementById("profileEditForm");
-  if (view) view.style.display = "";
-  if (form) form.style.display = "none";
+  if (view) view.classList.remove("is-hidden");
+  if (form) form.classList.add("is-hidden");
 }
 
 function showProfileEdit() {
   var view = document.getElementById("profileView");
   var form = document.getElementById("profileEditForm");
   if (!currentUser) return;
-  if (view) view.style.display = "none";
+  if (view) view.classList.add("is-hidden");
   if (form) {
-    form.style.display = "block";
+    form.classList.remove("is-hidden");
     document.getElementById("editFullname").value = currentUser.fullname || "";
     document.getElementById("editEmail").value = currentUser.email || "";
     document.getElementById("editCity").value = currentUser.city || "";
@@ -64,7 +64,7 @@ async function saveProfile() {
     currentUser = { fullname: fullname, email: email, city: city };
     await loadProfile();
   } else {
-    alert(data.error || "Viga salvestamisel");
+    alert(data.error || "Ошибка сохранения");
   }
 }
 
@@ -78,9 +78,9 @@ async function checkAuth() {
 checkAuth();
 loadProfile();
 
-var muudaBtn = document.getElementById("muudaProfiiliBtn");
-if (muudaBtn) {
-  muudaBtn.addEventListener("click", showProfileEdit);
+var editBtn = document.getElementById("editProfileBtn");
+if (editBtn) {
+  editBtn.addEventListener("click", showProfileEdit);
 }
 
 var form = document.getElementById("profileEditForm");

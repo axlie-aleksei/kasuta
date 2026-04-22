@@ -3,15 +3,7 @@ const router = express.Router();
 
 const upload = require("../middleware/uploadMiddleware");
 const pool = require("../db");
-
-function sanitizeText(value, maxLen) {
-  let s = String(value || "").trim();
-  if (maxLen && s.length > maxLen) {
-    s = s.slice(0, maxLen);
-  }
-  // простая защита от скриптов/HTML
-  return s.replace(/[<>]/g, "");
-}
+const { sanitizeText } = require("../lib/sanitizeInput");
 
 router.post(
   "/add",

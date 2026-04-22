@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../db");
-const { nameReg, emailReg, linnReg } = require("../validators/authValidators");
+const { nameReg, emailReg, cityReg } = require("../validators/authValidators");
+const { sendServerError } = require("../lib/safeError");
 
 router.get("/profile", (req, res) => {
 
@@ -21,9 +22,7 @@ router.get("/profile", (req, res) => {
   pool.execute(sql, [userId], (err, result) => {
 
     if (err) {
-      return res.status(500).json({
-        error: "Database error"
-      });
+      return sendServerError(res, err, "GET /profile");
     }
 
     res.json(result[0]);
@@ -43,7 +42,7 @@ function updateProfileHandler(req, res) {
   if (!fullname || !email || !city ||
       !nameReg.test(fullname) ||
       !emailReg.test(email) ||
-      !linnReg.test(city)
+      !cityReg.test(city)
   ) {
     return res.status(400).json({ error: "Invalid or missing fields" });
   }
@@ -53,7 +52,7 @@ function updateProfileHandler(req, res) {
     [email, userId],
     (err, rows) => {
       if (err) {
-        return res.status(500).json({ error: "Database error" });
+        return sendServerError(res, err, "profile email check");
       }
       if (rows.length > 0) {
         return res.status(409).json({ error: "Email already in use" });
@@ -64,7 +63,7 @@ function updateProfileHandler(req, res) {
         [fullname, email, city, userId],
         (err) => {
           if (err) {
-            return res.status(500).json({ error: "Database error" });
+            return sendServerError(res, err, "profile update");
           }
           res.json({ success: true });
         }
@@ -107,18 +106,13 @@ router.post(
         [filename, req.session.user.id],
         (err) => {
           if (err) {
-            console.error("Upload avatar DB error:", err.code, err.message);
-            return res.status(500).json({
-              error: "DB error",
-              details: err.message
-            });
+            return sendServerError(res, err, "Upload avatar DB");
           }
           res.json({ success: true, avatar: filename });
         }
       );
     } catch (e) {
-      console.error("Upload avatar unexpected error:", e);
-      res.status(500).json({ error: "Server error", details: e.message });
+      return sendServerError(res, e, "Upload avatar");
     }
   }
 );

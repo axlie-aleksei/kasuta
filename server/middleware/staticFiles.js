@@ -1,24 +1,40 @@
 const path = require("path");
 const express = require("express");
+const { viewsRoot } = require("../config/security");
+
+function send404Html(res) {
+  const filePath = path.join(viewsRoot, "404.html");
+  res.status(404).sendFile(filePath, (err) => {
+    if (err) res.status(404).type("html").send("<!DOCTYPE html><meta charset=utf-8><title>404</title><p>Страница не найдена.</p>");
+  });
+}
 
 function staticFiles(app) {
-  // Статика: CSS, JS, картинки
   app.use("/public", express.static(path.join(__dirname, "..", "..", "public")));
 
-  // Главная страница
   app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "..", "..", "views", "index.html"));
+    const filePath = path.join(viewsRoot, "index.html");
+    res.sendFile(filePath, (err) => {
+      if (err) send404Html(res);
+    });
   });
 
-  // Любой HTML файл из views
   app.get("/:page", (req, res) => {
-    const page = req.params.page;
-    // Ограничиваем, чтобы ловить только .html
-    if (!page.endsWith(".html")) return res.status(404).send("Page not found");
-
-    const filePath = path.join(__dirname, "..", "..", "views", page);
-    res.sendFile(filePath, (err) => {
-      if (err) res.status(404).send("Page not found");
+    const raw = req.params.page;
+    if (!raw.endsWith(".html")) {
+      return send404Html(res);
+    }
+    const safeName = path.basename(raw);
+    if (safeName !== raw || safeName.includes("..")) {
+      return send404Html(res);
+    }
+    const filePath = path.join(viewsRoot, safeName);
+    const resolved = path.resolve(filePath);
+    if (!resolved.startsWith(viewsRoot + path.sep) && resolved !== viewsRoot) {
+      return send404Html(res);
+    }
+    res.sendFile(resolved, (err) => {
+      if (err) send404Html(res);
     });
   });
 }

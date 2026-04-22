@@ -4,19 +4,27 @@ const imagesInput = document.getElementById("imagesInput");
 const previews = document.getElementById("imagePreviews");
 let previewUrls = [];
 
+function onAddItemPage() {
+  return /addItem\.html$/i.test(window.location.pathname || "");
+}
+
 function openAddItem() {
   if (modal) {
-    modal.style.display = "grid";
+    modal.classList.add("is-open");
   } else {
     window.location.href = "/addItem.html";
   }
 }
 
 function closeAddItem() {
+  if (onAddItemPage()) {
+    window.location.href = "/catalog.html";
+    return;
+  }
   if (modal) {
-    modal.style.display = "none";
+    modal.classList.remove("is-open");
   } else {
-    window.location.href = "/index.html";
+    window.location.href = "/catalog.html";
   }
 }
 
@@ -25,7 +33,7 @@ function clearPreviews() {
   previewUrls = [];
   if (previews) {
     previews.innerHTML = "";
-    previews.style.display = "none";
+    previews.classList.add("is-hidden");
   }
 }
 
@@ -34,12 +42,12 @@ function renderPreviews(files) {
   clearPreviews();
   if (!files || files.length === 0) return;
 
-  previews.style.display = "grid";
+  previews.classList.remove("is-hidden");
   Array.from(files).slice(0, 10).forEach((file) => {
     const url = URL.createObjectURL(file);
     previewUrls.push(url);
     const div = document.createElement("div");
-    div.className = "km-preview";
+    div.className = "image-preview";
     const img = document.createElement("img");
     img.src = url;
     img.alt = "preview";
@@ -78,34 +86,34 @@ if (imagesInput) {
   });
 }
 
-if (form) form.addEventListener("submit", async (e)=>{
+if (form) {
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-  e.preventDefault();
+    const formData = new FormData(form);
 
-  const formData = new FormData(form);
+    const res = await fetch("/api/items/add", {
+      method: "POST",
+      body: formData,
+      credentials: "include"
+    });
 
-  const res = await fetch("/api/items/add",{
-    method:"POST",
-    body:formData,
-    credentials: "include"
-  });
+    const contentType = res.headers.get("content-type") || "";
+    const data = contentType.includes("application/json")
+      ? await res.json()
+      : { error: "Server returned non-JSON response" };
 
-  const contentType = res.headers.get("content-type") || "";
-  const data = contentType.includes("application/json")
-    ? await res.json()
-    : { error: "Server returned non-JSON response" };
+    if (res.ok && data.success) {
+      alert("Товар добавлен");
+      form.reset();
+      clearPreviews();
+      closeAddItem();
 
-  if (res.ok && data.success) {
-    alert("Item added");
-    form.reset();
-    clearPreviews();
-    closeAddItem();
-
-    // обновить список на главной, если есть
-    if (window && typeof window.dispatchEvent === "function") {
-      window.dispatchEvent(new Event("items:reload"));
+      if (window && typeof window.dispatchEvent === "function") {
+        window.dispatchEvent(new Event("items:reload"));
+      }
+    } else {
+      alert(data.error || "Не удалось добавить товар");
     }
-  } else {
-    alert(data.error || "Failed to add item");
-  }
-});
+  });
+}

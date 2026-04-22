@@ -1,94 +1,92 @@
 (function () {
 
-  let page = 1
-  let loading = false
-  let finished = false
-  let scrollTimeout = null
+  let page = 1;
+  let loading = false;
+  let finished = false;
+  let scrollTimeout = null;
 
-  function escapeHtml(s){
+  function escapeHtml(s) {
     return String(s ?? "")
-      .replaceAll("&","&amp;")
-      .replaceAll("<","&lt;")
-      .replaceAll(">","&gt;")
-      .replaceAll('"',"&quot;")
-      .replaceAll("'","&#039;")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
   }
 
-  async function loadItems(){
+  async function loadItems() {
 
-    if(loading || finished) return
+    if (loading || finished) return;
 
-    loading = true
+    loading = true;
 
-    const container = document.getElementById("itemsContainer")
+    const container = document.getElementById("itemsContainer");
 
-    try{
+    try {
 
-      const res = await fetch(`/api/items?page=${page}`,{
-        credentials:"include"
-      })
+      const res = await fetch(`/api/items?page=${page}`, {
+        credentials: "include"
+      });
 
-      const items = await res.json()
+      const items = await res.json();
 
-      if(!items.length){
-        finished = true
-        return
+      if (!items.length) {
+        finished = true;
+        return;
       }
 
       items.forEach(item => {
 
         const image = item.image
           ? "/uploads/items/" + item.image
-          : "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Crect width='100%25' height='100%25' fill='%23101014'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' fill='%23ffffff' font-size='28'%3Eno image%3C/text%3E%3C/svg%3E"
+          : "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%231e293b'/%3E%3Cstop offset='100%25' stop-color='%23334155'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%2394a3b8' font-family='system-ui,sans-serif' font-size='22' font-weight='600'%3EНет фото%3C/text%3E%3C/svg%3E";
 
         const card = `
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-          <div class="tm-card">
-            <div class="tm-card__img-wrap">
-              <img src="${image}" class="tm-card__img">
-              <div class="tm-card__price">${escapeHtml(item.price)} €</div>
+          <div class="product-card">
+            <div class="product-card__media">
+              <img src="${image}" class="product-card__img" alt="">
+              <div class="product-card__price">${escapeHtml(item.price)} €</div>
             </div>
-            <div class="tm-card__body">
-              <div class="tm-card__title">${escapeHtml(item.title)}</div>
-              <div class="tm-card__desc">${escapeHtml(item.description)}</div>
+            <div class="product-card__body">
+              <div class="product-card__title">${escapeHtml(item.title)}</div>
+              <div class="product-card__desc">${escapeHtml(item.description)}</div>
             </div>
           </div>
         </div>
-        `
+        `;
 
-        container.insertAdjacentHTML("beforeend",card)
+        container.insertAdjacentHTML("beforeend", card);
 
-      })
+      });
 
-      page++
+      page++;
 
-    }catch(e){
-      console.log(e)
+    } catch (e) {
+      console.log(e);
     }
 
-    loading = false
+    loading = false;
 
   }
 
-  // первая загрузка
-  loadItems()
+  loadItems();
 
-  // debounce scroll
-  window.addEventListener("scroll",()=>{
+  window.addEventListener("scroll", () => {
 
-    if(scrollTimeout) clearTimeout(scrollTimeout)
+    if (scrollTimeout) clearTimeout(scrollTimeout);
 
-    scrollTimeout = setTimeout(()=>{
+    scrollTimeout = setTimeout(() => {
 
-      const scrollPosition = window.innerHeight + window.scrollY
-      const pageHeight = document.body.offsetHeight
+      const scrollPosition = window.innerHeight + window.scrollY;
+      const pageHeight = document.body.offsetHeight;
 
-      if(scrollPosition > pageHeight - 400){
-        loadItems()
+      if (scrollPosition > pageHeight - 400) {
+        loadItems();
       }
 
-    },150)
+    }, 150);
 
-  })
+  });
 
-})()
+})();
